@@ -1,0 +1,54 @@
+[package]
+name = "keyshow"
+version = "0.1.0"
+edition = "2024"
+description = "Show your keystrokes on screen (Linux + Windows)"
+readme = "README.md"
+authors = ["Farkhan Marzuki <farkhan.marzuki@unsoed.ac.id>"]
+
+[dependencies]
+dirs = "7.0.0"
+eframe = { version = "0.36.2", default-features = false, features = ["glow", "default_fonts", "x11", "wayland"] }
+interprocess = "2.4.5"
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.152"
+skrifa = "0.44"
+
+[target.'cfg(target_os = "linux")'.dependencies]
+evdev = "0.13.2"
+winit = { version = "0.30", default-features = false, features = ["x11"] }
+x11rb = "0.13"
+
+[target."cfg(windows)".dependencies]
+tray-icon = "0.26.1"
+windows-sys = { version = "0.61.2", features = ["Win32_Foundation", "Win32_UI_WindowsAndMessaging", "Win32_UI_Input_KeyboardAndMouse", "Win32_System_LibraryLoader", "Win32_System_Threading"] }
+
+[profile.release]
+lto = "thin"
+strip = true
+
+[build-dependencies]
+winresource = "0.1.31"
+
+[package.metadata.deb]
+section = "utils"
+priority = "optional"
+# winit/glutin load X11, xkbcommon and GL at runtime, so dpkg-shlibdeps can't see them.
+depends = "$auto, libx11-6, libxcursor1, libxrandr2, libxi6, libxkbcommon-x11-0, libgl1, libegl1"
+recommends = "xwayland"
+extended-description = """\
+Keyshow shows the keys and shortcuts you press (and optionally mouse clicks) \
+in a transparent, click-through, always-on-top overlay. Made for tutorials, \
+software demos, presentations and screen recordings. Works on X11 and Wayland.
+.
+This package installs a udev rule (uaccess) that lets the user logged in at \
+the local seat read keyboards and mice from /dev/input. Keyshow needs this to \
+see keystrokes on Wayland; note that it applies to every program that user runs."""
+maintainer-scripts = "packaging/debian/"
+assets = [
+    ["target/release/keyshow", "usr/bin/", "755"],
+    ["packaging/linux/keyshow.desktop", "usr/share/applications/", "644"],
+    ["packaging/linux/keyshow.svg", "usr/share/icons/hicolor/scalable/apps/", "644"],
+    ["packaging/linux/70-keyshow.rules", "usr/lib/udev/rules.d/", "644"],
+    ["README.md", "usr/share/doc/keyshow/", "644"],
+]

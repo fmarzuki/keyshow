@@ -1,0 +1,25 @@
+[Desktop Entry]
+Type=Application
+Name=Keyshow
+GenericName=Keystroke Visualizer
+Comment=Show your keystrokes on screen for tutorials, demos and recordings
+Exec=keyshow
+Icon=keyshow
+Terminal=false
+Categories=Utility;Accessibility;
+Keywords=keyboard;keystroke;screencast;shortcut;overlay;
+StartupWMClass=keyshow
+SingleMainWindow=true
+Actions=settings;pause;quit;
+
+[Desktop Action settings]
+Name=Settings
+Exec=keyshow --settings
+
+[Desktop Action pause]
+Name=Pause / Resume
+Exec=keyshow --pause
+
+[Desktop Action quit]
+Name=Quit
+Exec=keyshow --quit

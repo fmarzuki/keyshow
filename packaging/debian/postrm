@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+# Drop the input-device access granted by the removed udev rule.
+if [ "$1" = "remove" ] || [ "$1" = "purge" ]; then
+    if command -v udevadm >/dev/null 2>&1; then
+        udevadm control --reload || true
+        udevadm trigger --subsystem-match=input --action=change || true
+    fi
+fi
+#DEBHELPER#
