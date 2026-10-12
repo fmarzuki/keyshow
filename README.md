@@ -1,4 +1,12 @@
-# Keyshow
+<p align="center">
+  <img src="packaging/linux/keyshow.svg" alt="Keyshow icon" width="96" height="96">
+</p>
+
+<h1 align="center">Keyshow</h1>
+
+<p align="center">
+  <img src="keyshow.gif" alt="Keyshow showing keystrokes and shortcuts on screen" width="624">
+</p>
 
 Keyshow shows the keys and shortcuts you press, and optionally your mouse clicks, on screen.
 It is made for tutorials, software demos, presentations and screen recordings. Inspired by
